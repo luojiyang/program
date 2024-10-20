@@ -1,2 +1,10 @@
-<!--pages/video/video.wxml-->
-<text>pages/video/video.wxml</text>
+<view wx:for="{{videos}}" wx:key="unique" class="container">
+  <veiw class="line" wx:if="{{index!=0}}"></veiw>
+  <view class="contentContainer">
+    <image src="{{posterInfo.avatar}}" class="avatar" />
+    <view>
+      <view class="name">{{posterInfo.posterName}}</view>
+      <video src="{{item.videoLink}}" class="video" object-fit="contain"></video>
+    </view>
+  </view>
+</view>

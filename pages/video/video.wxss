@@ -1,1 +1,38 @@
-/* pages/video/video.wxss */
+.container {
+  width: 100%;
+  padding: 0;
+}
+
+.line {
+  width: 90%;
+  height: 1rpx;
+  background-color: #E7E6E6;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  padding: 40rpx;
+}
+
+.avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 5%;
+}
+
+.name {
+  height: 40rpx;
+  padding: 0rpx 20rpx 30rpx;
+  font-size: 35rpx;
+  color: #5C7098;
+}
+
+.video {
+  width: 550rpx;
+  height: 400rpx;
+  margin-left: 20rpx;
+}
