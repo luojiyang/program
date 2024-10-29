@@ -1,14 +1,22 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/video/video",
+    "pages/newProduct/newProduct",
+    "pages/classification/classification",
+    "pages/order/order",
+    "pages/classification/product/product"
   ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "Weixin",
     "navigationBarBackgroundColor": "#ffffff"
   },
-  "style": "v2",
+  "usingComponents": {
+    "van-search": "miniprogram_npm/@vant/weapp/search/index",
+    "van-dropdown-menu": "miniprogram_npm/@vant/weapp/dropdown-menu/index",
+    "van-tabbar": "miniprogram_npm/@vant/weapp/tabbar/index",
+    "van-tabbar-item": "miniprogram_npm/@vant/weapp/tabbar-item/index"
+  },
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"

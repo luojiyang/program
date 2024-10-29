@@ -1,10 +1,35 @@
-<view wx:for="{{videos}}" wx:key="unique" class="container">
-  <veiw class="line" wx:if="{{index!=0}}"></veiw>
-  <view class="contentContainer">
-    <image src="{{posterInfo.avatar}}" class="avatar" />
-    <view>
-      <view class="name">{{posterInfo.posterName}}</view>
-      <video src="{{item.videoLink}}" class="video" object-fit="contain"></video>
+<view style="padding-bottom:90px;">
+  <view wx:for="{{videos}}" wx:key="unique" class="container">
+    <veiw class="line" wx:if="{{index!=0}}"></veiw>
+    <view class="contentContainer">
+      <image src="{{posterInfo.avatar}}" class="avatar" />
+      <view>
+        <view class="name">{{posterInfo.posterName}}</view>
+        <video src="{{item.videoLink}}" class="video" object-fit="contain"></video>
+      </view>
     </view>
   </view>
 </view>
+<!--tab-->
+<van-tabbar active="{{ active }}" active-color="#C00000" bind:change="onChange">
+  <van-tabbar-item url="/pages/video/video">
+    <image src="/images/video.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon" />
+    <image src="/images/video.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon-active" />
+    视频
+  </van-tabbar-item>
+  <van-tabbar-item url="/pages/classification/classification">
+    <image src="/images/classification.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon" />
+    <image src="/images/classification.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon-active" />
+    分类
+  </van-tabbar-item>
+  <van-tabbar-item url="/pages/newProduct/newProduct">
+    <image src="/images/newProduct.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon" />
+    <image src="/images/newProduct.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon-active" />
+    上新
+  </van-tabbar-item>
+  <van-tabbar-item url="/pages/order/order">
+    <image src="/images/order.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon" />
+    <image src="/images/order.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon-active" />
+    订单
+  </van-tabbar-item>
+</van-tabbar>

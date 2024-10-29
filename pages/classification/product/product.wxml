@@ -1,0 +1,32 @@
+<!--基本信息-->
+<image src="{{product.images[0]}}" class="picture" mode="widthFix">
+</image>
+<view class="name">{{product.name}}</view>
+<view class="specs">
+  <view wx:for="{{product.specs}}" class="{{item.active?'activeTag':'tag'}}" bind:tap="chooseSpec" data-index="{{index}}">{{item.name}}</view>
+</view>
+<view wx:for="{{product.specs}}" class="value" hidden="{{!item.active}}">￥{{item.value}}</view>
+<view class="option" wx:for="{{product.options}}">
+  <view>{{item.name}}: {{item.info}}</view>
+</view>
+
+<!--切换商品-->
+<view class="changeProduct">
+  <view class="next" bind:tap="lastProduct">
+    <image src="/images/arrowLeft.png" class="arrow"></image>上一个商品
+  </view>
+  <view class="next" bind:tap="nextProduct">下一个商品<image src="/images/arrowRight.png" class="arrow"></image>
+  </view>
+</view>
+<!--商品详情-->
+<view class="info">商品详情</view>
+<view wx:for="{{product.images}}" style="background-color: #ffffff;">
+  <image src="{{item}}" mode="widthFix" class="picture"></image>
+</view>
+<view style="padding-bottom:80px;"></view>
+
+<!--分享&咨询-->
+<van-tabbar bind:change="onClick">
+  <van-tabbar-item icon="share">分享</van-tabbar-item>
+  <van-tabbar-item icon="phone">咨询</van-tabbar-item>
+</van-tabbar>

@@ -24,5 +24,12 @@
     "tabIndent": "auto",
     "tabSize": 2
   },
-  "appid": "wx903211995fdafd16"
+  "appid": "wx903211995fdafd16",
+  "packNpmManually": true,
+  "packNpmRelationList": [
+    {
+      "packageJsonPath": "./package.json",
+      "miniprogramNpmDistDir": "./miniprogram/"
+    }
+  ]
 }

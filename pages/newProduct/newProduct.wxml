@@ -1,2 +1,95 @@
-<!--pages/newProduct/newProduct.wxml-->
-<text>pages/newProduct/newProduct.wxml</text>
+<!--信息部分-->
+<view class="infoContainer">
+  <image src="{{sellerInfo.avatar}}" class="icon" bind:tap="showMoreInfo"></image>
+  <view class="sellerName">{{sellerInfo.username}}</view>
+</view>
+<!--更多信息-->
+<view class="moreInfoContainer" hidden="{{ifShowMoreInfo}}">
+  <view class="itemText">
+    <view>电话：</view>
+    <view>地址：</view>
+    <view>简介：</view>
+  </view>
+  <view class="infoText">
+    <view>{{sellerInfo.phone}}</view>
+    <view>{{sellerInfo.location}}</view>
+    <view>{{sellerInfo.intro}}</view>
+  </view>
+
+</view>
+<!--搜索栏-->
+<van-search value="{{ value }}" placeholder="请输入商品名称" show-action bind:change="onChange" bind:cancel="onCancel" custom-class="search" />
+<!--商品和目录-->
+<view class="contentContainer" style="padding-bottom:90px;">
+  <!--目录-->
+  <view class="menu">
+    <view bind:tap="allProduct" class="firstMenu {{menuId==-1?'menuActive':''}}">全部商品</view>
+    <view wx:for="{{content}}" wx:for-item="firstItem">
+      <view class="firstMenu {{menuId==firstItem.id?'menuActive':''}}">
+        <view bind:tap="menuProduct" data-id="{{firstItem.id}}" data-index="first">{{firstItem.categoryName}}</view>
+        <image hidden="{{firstItem.children==null}}" src="/images/arrowdown.png" class="arrow" data-id="{{firstItem.id}}" bind:tap="showSecondChildMenu"></image>
+      </view>
+      <view wx:for="{{firstItem.children}}" wx:for-item="secondItem">
+        <view class="secondMenu {{menuId==secondItem.id?'menuActive':''}}" hidden="{{!secondItem.ifShow}}">
+          <view bind:tap="menuProduct" data-id="{{secondItem.id}}" data-index="second">{{secondItem.categoryName}}</view>
+          <image hidden="{{secondItem.children==null}}" src="/images/arrowdown.png" class="arrow" data-id="{{secondItem.id}}" bind:tap="showThirdChildMenu"></image>
+        </view>
+        <view wx:for="{{secondItem.children}}" wx:for-item="thirdItem">
+          <view class="thirdMenu {{menuId==thirdItem.id?'menuActive':''}}" hidden="{{!thirdItem.ifShow}}" data-id="{{thirdItem.id}}" bind:tap="menuProduct" data-index="third">{{thirdItem.categoryName}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--商品-->
+  <scroll-view scroll-y class="scrollClass" show-scrollbar="{{false}}" enhanced="{{true}}" bindscrolltolower="getMoreProduct">
+    <view wx:if="{{productLeft.length!=0||productRight.length!=0}}" class="scrollContainer">
+      <view class="productContainer">
+        <view class="productCard" wx:for="{{productLeft}}" bind:tap="productInfo" data-id="{{item.id}}">
+          <image src="{{item.productAvatar}}" class="productImg" mode="widthFix"></image>
+          <view class="productInfo">
+            <view class="productName">{{item.productName}}</view>
+            <view class="price">
+              <view>￥{{item.productLowPrice}}</view>
+              <view wx:if="{{item.productLowPrice!=item.productHighPrice}}">~{{item.productHighPrice}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="productContainer">
+        <view class="productCard" wx:for="{{productRight}}" bind:tap="productInfo" data-id="{{item.id}}">
+          <image src="{{item.productAvatar}}" class="productImg" mode="widthFix"></image>
+          <view class="productInfo">
+            <view class="productName">{{item.productName}}</view>
+            <view class="price">
+              <view>￥{{item.productLowPrice}}</view>
+              <view wx:if="{{item.productLowPrice!=item.productHighPrice}}">~{{item.productHighPrice}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="noProduct">--该分类下暂无商品--</view>
+  </scroll-view>
+</view>
+<van-tabbar active="{{ active }}" active-color="#C00000" bind:change="onChange">
+  <van-tabbar-item url="/pages/video/video">
+    <image src="/images/video.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon" />
+    <image src="/images/video.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon-active" />
+    视频
+  </van-tabbar-item>
+  <van-tabbar-item url="/pages/classification/classification">
+    <image src="/images/classification.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon" />
+    <image src="/images/classification.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon-active" />
+    分类
+  </van-tabbar-item>
+  <van-tabbar-item url="/pages/newProduct/newProduct">
+    <image src="/images/newProduct.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon" />
+    <image src="/images/newProduct.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon-active" />
+    上新
+  </van-tabbar-item>
+  <van-tabbar-item url="/pages/order/order">
+    <image src="/images/order.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon" />
+    <image src="/images/order.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon-active" />
+    订单
+  </van-tabbar-item>
+</van-tabbar>

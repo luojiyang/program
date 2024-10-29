@@ -2,6 +2,7 @@ const app = getApp();
 const url = app.globalData.url;
 Page({
   data: {
+    active: 0,   //当前tab页面
     page: 1,   //请求页面参数
     size: 5,   //每次请求视频个数
     videos: [],   //视频列表
@@ -17,6 +18,10 @@ Page({
     this.getVideo(this.data.page, this.data.size)
     this.getPosterInfo()
   },
+  onChange(event) {   //切换tab
+    this.setData({ active: event.detail });
+  },
+
   getVideo: function (page, size) {   //获取视频，传入请求页和每页视频个数
     let that = this
     wx.request({

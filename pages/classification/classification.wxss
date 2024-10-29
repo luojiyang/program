@@ -1,1 +1,183 @@
-/* pages/classification/classification.wxss */
+page {
+  background-color: #E7E6E6;
+}
+
+.infoContainer {
+  width: 90%;
+  height: 120rpx;
+  display: flex;
+  flex-direction: row;
+  padding: 30rpx;
+  align-items: flex-start;
+  background-color: white;
+  margin: 10rpx auto;
+  border-radius: 12rpx;
+}
+
+.icon {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 120rpx;
+}
+
+.sellerName {
+  height: 50rpx;
+  font-size: 45rpx;
+  padding: 10rpx 30rpx;
+}
+
+.moreInfoContainer {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  padding: 30rpx;
+  align-items: flex-start;
+  background-color: white;
+  margin: 10rpx auto;
+  border-radius: 12rpx;
+}
+
+.itemText {
+  width: 150rpx;
+  font-size: 30rpx;
+  color: #D0CECE;
+  display: grid;
+  grid-gap: 10rpx;
+}
+
+.infoText {
+  font-size: 30rpx;
+  color: #000000;
+  display: grid;
+  grid-gap: 10rpx;
+}
+
+.search {
+  width: calc(90% + 60rpx);
+  height: 100rpx;
+  background-color: white;
+  margin: 10rpx auto;
+  border-radius: 12rpx;
+}
+
+.contentContainer {
+  height: 75vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.menu {
+  width: 180rpx;
+  height: fit-content;
+  padding: 20rpx;
+  background-color: white;
+  margin-left: 10rpx;
+  border-radius: 12rpx;
+}
+
+.arrow {
+  width: 20rpx;
+  height: 20rpx;
+}
+
+.menuActive {
+  border-left: 5rpx solid #C00000;
+}
+
+.firstMenu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  color: #000000;
+  font-weight: bold;
+  line-height: 50rpx;
+  font-size: 28rpx;
+  border-bottom: 1rpx solid #E7E6E6;
+  padding-left: 10rpx;
+}
+
+.secondMenu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  color: #595959;
+  line-height: 50rpx;
+  font-size: 28rpx;
+  border-bottom: 1rpx solid #E7E6E6;
+  padding-left: 10rpx;
+}
+
+.thirdMenu {
+  width: 100%;
+  color: #D0CECE;
+  line-height: 50rpx;
+  font-size: 28rpx;
+  border-bottom: 1rpx solid #E7E6E6;
+  padding-left: 10rpx;
+}
+
+.scrollClass {
+  height: 100%;
+  width: 530rpx;
+  padding: 0 10rpx;
+}
+
+.scrollContainer {
+  width: 530rpx;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.productContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.productCard {
+  width: 260rpx;
+  height: fit-content;
+  background-color: #ffffff;
+  border-radius: 10rpx;
+  margin-bottom: 10rpx;
+}
+
+.productCard:nth-of-type(odd) {
+  margin-right: 10rpx;
+}
+
+.productImg {
+  width: 260rpx;
+  height: auto;
+  border-radius: 10rpx 10rpx 0 0;
+}
+
+.productInfo {
+  padding: 0 10rpx 10rpx;
+}
+
+.productName {
+  font-size: 30rpx;
+  line-height: 40rpx;
+}
+
+.price {
+  display: flex;
+  flex-direction: row;
+  color: red;
+  font-size: 25rpx;
+}
+
+.noProduct {
+  width: 530rpx;
+  color: #000000;
+  font-size: 30rpx;
+  margin: 10rpx auto;
+  text-align: center;
+}

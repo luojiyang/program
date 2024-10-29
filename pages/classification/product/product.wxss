@@ -1,0 +1,92 @@
+page {
+  background-color: #E7E6E6;
+}
+
+.picture {
+  width: 780rpx;
+}
+
+.name {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  background-color: #ffffff;
+  padding: 10rpx 20rpx;
+  margin-top: -10rpx;
+  font-size: large;
+  font-weight: bold;
+}
+
+.specs {
+  background-color: #ffffff;
+  padding: 10rpx 20rpx;
+  margin-top: -10rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.activeTag {
+  border: 3rpx solid #C00000;
+  border-radius: 12rpx;
+  padding: 5rpx 10rpx;
+  margin-right: 20rpx;
+}
+
+.tag {
+  border: 3rpx solid #666666;
+  border-radius: 12rpx;
+  padding: 5rpx 10rpx;
+  margin-right: 20rpx;
+}
+
+.value {
+  width: 100%;
+  height: 80rpx;
+  line-height: 100rpx;
+  background-color: #ffffff;
+  padding: 10rpx 20rpx;
+  margin-top: -10rpx;
+  font-size: large;
+  font-weight: bold;
+  color: red;
+}
+
+.option {
+  width: 100%;
+  padding: 20rpx;
+  margin-top: -10rpx;
+  font-size: medium;
+  background-color: #E7E6E6;
+}
+
+.changeProduct {
+  height: 90rpx;
+  background-color: #ffffff;
+  padding: 10rpx 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10rpx;
+  align-items: center;
+}
+
+.next {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.arrow {
+  height: 25rpx;
+  width: 25rpx;
+  margin: 0rpx 5rpx;
+}
+
+.info {
+  margin-top: 10rpx;
+  font-size: medium;
+  font-weight: bold;
+  background-color: #ffffff;
+  text-align: center;
+  padding: 30rpx 0;
+}
