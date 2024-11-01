@@ -6,17 +6,13 @@ Page({
     page: 1,   //请求页面参数
     size: 5,   //每次请求视频个数
     videos: [],   //视频列表
-    posterInfo: {   //视频发布者信息
-      avatar: '',
-      posterName: ''
-    }
   },
+
   onLoad(options) {
     this.setData({
       page: 1
     })
     this.getVideo(this.data.page, this.data.size)
-    this.getPosterInfo()
   },
   onChange(event) {   //切换tab
     this.setData({ active: event.detail });
@@ -33,7 +29,11 @@ Page({
       },
       success(res) {
         if (res.data.code == 20002) {
-          let videos = [...that.data.videos, ...res.data.data];
+          let newVideo = res.data.data
+          for (let i = 0; i < newVideo.length; i++) {
+            newVideo[i].createTime = that.modifyDate(newVideo[i].createTime)
+          }
+          let videos = [...that.data.videos, ...newVideo];
           that.setData({
             page: page + 1,
             videos: videos
@@ -43,25 +43,27 @@ Page({
     })
   },
 
-  onReachBottom() {     // 触底更新，刷新数据
+  modifyDate: function (string) {   //修改日期字符串
+    let dateList = []
+    dateList.push(string.slice(0, 4))
+    dateList.push(string.slice(5, 7))
+    dateList.push(string.slice(8, 10))
+    return dateList
+  },
+
+  onReachBottom() {     //触底更新，刷新数据
     this.getVideo(this.data.page, this.data.size)
   },
-  getPosterInfo: function () {   //获取发布者信息
-    let that = this
-    wx.request({
-      url: url + '/user',
-      method: 'GET',
-      success(res) {
-        if (res.data.code == 20000) {
-          let posterInfo = {
-            avatar: res.data.data.avatar,
-            posterName: res.data.data.username
-          }
-          that.setData({
-            posterInfo: posterInfo
-          })
-        }
-      }
-    })
+  playVideo: function (e) {   //播放视频自动进入全屏
+    this.videoContext = wx.createVideoContext(e.currentTarget.id, this); // 	创建 video 上下文 VideoContext 对象。
+    this.videoContext.requestFullScreen({
+      direction: 0
+    });
+  },
+  pauseVideo: function (e) {   //播放视频自动进入全屏
+    if (!e.detail.fullScreen) {
+      this.videoContext = wx.createVideoContext(e.currentTarget.id, this); // 	创建 video 上下文 VideoContext 对象。
+      this.videoContext.pause()
+    }
   }
 })
