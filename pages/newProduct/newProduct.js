@@ -149,7 +149,6 @@ Page({
             productRight: productRight,
             page: page
           })
-          console.log(productLeft)
         }
       }
     })
