@@ -1,6 +1,6 @@
 App({
   globalData: {
-    url: 'http://54.251.36.109:8888',
+    url: 'http://128.199.224.162:8888',
     pages:[
       "pages/video/video",
       "pages/newProduct/newProduct",

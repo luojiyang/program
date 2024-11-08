@@ -26,16 +26,14 @@
     <view bind:tap="allProduct" class="firstMenu {{menuId==-1?'menuActive':''}}">全部商品</view>
     <view wx:for="{{content}}" wx:for-item="firstItem">
       <view class="firstMenu {{menuId==firstItem.id?'menuActive':''}}">
-        <view bind:tap="menuProduct" data-id="{{firstItem.id}}" data-index="first">{{firstItem.categoryName}}</view>
-        <image hidden="{{firstItem.children==null}}" src="/images/arrowdown.png" class="arrow" data-id="{{firstItem.id}}" bind:tap="showSecondChildMenu"></image>
+        <view bind:tap="firstMenu" data-id="{{firstItem.id}}">{{firstItem.categoryName}}</view>
       </view>
       <view wx:for="{{firstItem.children}}" wx:for-item="secondItem">
-        <view class="secondMenu {{menuId==secondItem.id?'menuActive':''}}" hidden="{{!secondItem.ifShow}}">
-          <view bind:tap="menuProduct" data-id="{{secondItem.id}}" data-index="second">{{secondItem.categoryName}}</view>
-          <image hidden="{{secondItem.children==null}}" src="/images/arrowdown.png" class="arrow" data-id="{{secondItem.id}}" bind:tap="showThirdChildMenu"></image>
+        <view class="secondMenu {{menuId==secondItem.id?'menuActive':''}}" hidden="{{!firstItem.ifShow}}">
+          <view bind:tap="secondMenu" data-id="{{secondItem.id}}">{{secondItem.categoryName}}</view>
         </view>
         <view wx:for="{{secondItem.children}}" wx:for-item="thirdItem">
-          <view class="thirdMenu {{menuId==thirdItem.id?'menuActive':''}}" hidden="{{!thirdItem.ifShow}}" data-id="{{thirdItem.id}}" bind:tap="menuProduct" data-index="third">{{thirdItem.categoryName}}</view>
+          <view class="thirdMenu {{menuId==thirdItem.id?'menuActive':''}}" hidden="{{!secondItem.ifShow}}" data-id="{{thirdItem.id}}" bind:tap="thirdMenu">{{thirdItem.categoryName}}</view>
         </view>
       </view>
     </view>

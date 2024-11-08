@@ -70,56 +70,18 @@ Page({
         if (res.data.code == 20004) {
           let content = res.data.data
           for (let i = 0; i < content.length; i++) {
-            if (content[i].children != null)
+            content[i]['ifShow'] = false
+            if (content[i].children != null) {
               for (let j = 0; j < content[i].children.length; j++) {
-                content[i].children[j]['ifShow'] = true
-                if (content[i].children[j].children != null)
-                  for (let k = 0; k < content[i].children[j].children.length; k++) {
-                    content[i].children[j].children[k]['ifShow'] = true
-                  }
+                content[i].children[j]['ifShow'] = false
               }
+            }
           }
           that.setData({
             content: content
           })
         }
       }
-    })
-  },
-  showSecondChildMenu: function (event) {   //展开关闭二级菜单
-    let id = event.currentTarget.dataset.id
-    let content = this.data.content
-    for (let i = 0; i < content.length; i++) {
-      if (content[i].id == id) {
-        for (let j = 0; j < content[i].children.length; j++) {
-          content[i].children[j]['ifShow'] = !content[i].children[j]['ifShow']
-          for (let k = 0; k < content[i].children[j].children.length; k++) {
-            content[i].children[j].children[k]['ifShow'] = content[i].children[j]['ifShow']
-          }
-        }
-        break
-      }
-    }
-    this.setData({
-      content: content
-    })
-  },
-  showThirdChildMenu: function (event) {   //展开关闭三级菜单
-    let id = event.currentTarget.dataset.id
-    let content = this.data.content
-    for (let i = 0; i < content.length; i++) {
-      if (content[i].children != null)
-        for (let j = 0; j < content[i].children.length; j++) {
-          if (content[i].children[j].id == id) {
-            for (let k = 0; k < content[i].children[j].children.length; k++) {
-              content[i].children[j].children[k]['ifShow'] = !content[i].children[j].children[k]['ifShow']
-            }
-            break
-          }
-        }
-    }
-    this.setData({
-      content: content
     })
   },
   getProduct: function (productName = "", categoryId = "") {   //获取商品
@@ -154,43 +116,112 @@ Page({
     })
   },
   allProduct: function () {   //全部商品按钮
+    let content = this.data.content
+    for (let i = 0; i < content.length; i++) {   //关闭全部菜单
+      if (content[i].children != null) {
+        content[i].ifShow = false
+        for (let j = 0; j < content[i].children.length; j++) {
+          if (content[i].children[j].children != null)
+            content[i].children[j].ifShow = false
+        }
+      }
+    }
     this.setData({
       page: 1,
       menuId: -1,
       productLeft: [],
       productRight: [],
+      content: content
     })
     this.getProduct(this.data.value)
   },
-  menuProduct: function (event) {   //获取指定目录下商品
-    let index = event.currentTarget.dataset.index
+  firstMenu: function (event) {   //控制一级菜单
     let id = event.currentTarget.dataset.id
-    let menuId = id
-    //一级目录找最小子目录
-    if (index == "first")
-      for (let i = 0; i < this.data.content.length; i++) {
-        if (this.data.content[i].id == id) {
-          menuId = this.findchildMenu(this.data.content[i]).id
-          break
+    let menuId = this.data.menuId
+    let content = this.data.content
+    for (let i = 0; i < content.length; i++) {
+      if (content[i].id == id) {
+        menuId = this.findchildMenu(this.data.content[i]).id
+        if (!content[i].ifShow) {   //如果一级菜单是关闭状态
+          content[i].ifShow = true
+          if (content[i].children != null)
+            for (let j = 0; j < content[i].children.length; j++) {
+              if (content[i].children[j].children != null) {
+                content[i].children[j].ifShow = true
+                break
+              }
+            }
         }
-      }
-    else if (index == "second")
-      for (let i = 0; i < this.data.content.length; i++) {
-        if (this.data.content[i].children != null)
-          for (let j = 0; j < this.data.content[i].children.length; j++) {
-            if (this.data.content[i].children[j].id == id) {
-              menuId = this.findchildMenu(this.data.content[i].children[j]).id
-              break
+        else {   //一级菜单展开状态
+          content[i]['ifShow'] = false
+          if (content[i].children != null) {
+            for (let j = 0; j < content[i].children.length; j++) {
+              content[i].children[j]['ifShow'] = false
             }
           }
+        }
+        this.setData({
+          page: 1,
+          menuId: menuId,
+          productLeft: [],
+          productRight: [],
+        })
+        this.getProduct(this.data.value, this.data.menuId)
       }
+      else {
+        content[i]['ifShow'] = false
+        if (content[i].children != null) {
+          for (let j = 0; j < content[i].children.length; j++) {
+            content[i].children[j]['ifShow'] = false
+          }
+        }
+      }
+    }
+    this.setData({
+      content: content
+    })
+  },
+  secondMenu: function (event) {   //控制二级菜单
+    let id = event.currentTarget.dataset.id
+    let menuId = id
+    let content = this.data.content
+    for (let i = 0; i < content.length; i++) {
+      if (content[i].children != null)
+        for (let j = 0; j < content[i].children.length; j++) {
+          if (content[i].children[j].id == id) {
+            if (content[i].children[j].ifShow) {   //二级菜单展开
+              content[i].children[j].ifShow = false
+            }
+            else {   //二级菜单关闭
+              content[i].children[j].ifShow = true
+              menuId = this.findchildMenu(content[i].children[j]).id
+              this.setData({
+                page: 1,
+                menuId: menuId,
+                productLeft: [],
+                productRight: [],
+              })
+              this.getProduct(this.data.value, this.data.menuId)
+            }
+          }
+          else {
+            content[i].children[j].ifShow = false
+          }
+        }
+    }
+    this.setData({
+      content: content
+    })
+  },
+  thirdMenu: function (event) {   //控制三级菜单
+    let id = event.currentTarget.dataset.id
     this.setData({
       page: 1,
-      menuId: menuId,
+      menuId: id,
       productLeft: [],
       productRight: [],
     })
-    this.getProduct(this.data.value, this.data.menuId)
+    this.getProduct(this.data.value, id)
   },
   findchildMenu: function (content) {   //找到第一个子目录
     // 如果当前目录没有子目录，则认为它是终点目录 
