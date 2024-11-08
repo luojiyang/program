@@ -4,8 +4,8 @@
     <view class="contentContainer">
       <view style="width:150rpx;">
         <view class="year">{{item.createTime[0]}}年</view>
-        <view class="day">{{item.createTime[2]}}</view>
         <view class="month">{{item.createTime[1]}}月</view>
+        <view class="day">{{item.createTime[2]}}日</view>
       </view>
       <view wx-if="{{item.videoLink}}">
         <video src="{{item.videoLink}}" class="video" object-fit="contain" show-fullscreen-btn="{{false}}" id="{{item.videoId}}" bindplay="playVideo" bindfullscreenchange="pauseVideo"></video>

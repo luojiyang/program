@@ -27,11 +27,12 @@
   display: inline;
   font-weight: bold;
   margin-left: -5rpx;
+  font-size: 30rpx;
 }
 
 .day {
   display: inline;
-  font-size: 50rpx;
+  font-size: 30rpx;
   font-weight: bold;
 }
 
