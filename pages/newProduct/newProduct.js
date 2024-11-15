@@ -18,6 +18,9 @@ Page({
     this.getMenu()
     this.getProduct(this.data.value)
   },
+  onShow(){
+    wx.hideHomeButton()
+  },
   onChange(event) {   //切换tab
     this.setData({ active: event.detail });
   },

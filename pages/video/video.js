@@ -13,6 +13,9 @@ Page({
     })
     this.getVideo(this.data.page, this.data.size)
   },
+  onShow(){
+    wx.hideHomeButton()
+  },
   onChange(event) {   //切换tab
     this.setData({ active: event.detail });
   },

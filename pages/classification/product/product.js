@@ -1,5 +1,6 @@
 const app = getApp();
 const url = app.globalData.url;
+const { wxml, style } = require('./canvas');
 Page({
   data: {
     id: -1,   //商品id
@@ -16,6 +17,35 @@ Page({
     })
     this.getSellerInfo()
     this.getInfo()
+    this.widget = this.selectComponent('.widget');
+  },
+  getServerData() {   //生成图片
+    wx.showLoading({
+      title: '图片生成中...',
+    });
+    let image = this.data.product.images[0]
+    let name = this.data.product.name
+    let specs = this.data.product.specs.filter(item => item.active).map(item => item.name)
+    let value = this.data.product.specs.filter(item => item.active).map(item => item.value)
+    let styles = {   //这里设定规格宽度
+      specsWidth: specs.toString().replace(/[\u0391-\uFFE5]/g, "aa").length * 12
+    }
+    let _wxml = wxml(image, name, specs, value);
+    let _style = style(styles)
+    setTimeout(() => {
+      const p1 = this.widget.renderToCanvas({
+        wxml: _wxml,
+        style: _style,
+      });
+      p1.then((res) => {
+        this.container = res;
+        wx.hideLoading();
+        this.preservation();
+      });
+    }, 500);
+  },
+  onShow() {
+    wx.hideHomeButton()
   },
   getSellerInfo: function () {   //获取卖家信息
     let that = this
@@ -92,12 +122,35 @@ Page({
       product: product
     })
   },
-  onClick(event) {   //分享或者咨询
-    if (event.detail == 1)
+  onClick(event) {   //分享\咨询\回到主页
+    if (event.detail == 0) {
+      this.getServerData()
+    }
+    else if (event.detail == 1) {
+      wx.navigateBack({
+        delta: 1
+      })
+    }
+    else {
       wx.makePhoneCall({
         phoneNumber: this.data.phone
       })
-    else
-      console.log("分享卡片，限制二次转发")
+    }
   },
+  preservation() {   //保存图片到本地
+    const p2 = this.widget.canvasToTempFilePath()
+    p2.then(res => {
+      wx.saveImageToPhotosAlbum({
+        filePath: res.tempFilePath,
+        success(res) {
+          wx.showToast({
+            title: '图片已保存!',
+            duration: 3000
+          })
+        },
+      })
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 })

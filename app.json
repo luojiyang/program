@@ -15,7 +15,8 @@
     "van-search": "miniprogram_npm/@vant/weapp/search/index",
     "van-dropdown-menu": "miniprogram_npm/@vant/weapp/dropdown-menu/index",
     "van-tabbar": "miniprogram_npm/@vant/weapp/tabbar/index",
-    "van-tabbar-item": "miniprogram_npm/@vant/weapp/tabbar-item/index"
+    "van-tabbar-item": "miniprogram_npm/@vant/weapp/tabbar-item/index",
+    "wxml-to-canvas": "miniprogram_npm/wxml-to-canvas"
   },
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",

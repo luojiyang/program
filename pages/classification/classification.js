@@ -18,6 +18,9 @@ Page({
     this.getMenu()
     this.getProduct(this.data.value)
   },
+  onShow(){
+    wx.hideHomeButton()
+  },
   onChange(event) {   //切换tab
     this.setData({ active: event.detail });
   },
@@ -252,7 +255,7 @@ Page({
       idList.push(this.data.productLeft[i].id)
     for (let i = 0; i < this.data.productRight.length; i++)
       idList.push(this.data.productRight[i].id)
-    wx.reLaunch({
+      wx.navigateTo({
       url: '/pages/classification/product/product?id=' + id + '&productList=' + JSON.stringify(idList)
     })
   }
