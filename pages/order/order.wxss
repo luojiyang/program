@@ -1,1 +1,77 @@
-/* pages/order/order.wxss */
+page {
+  background-color: #E7E6E6;
+}
+
+.productCard {
+  background-color: #ffffff;
+  width: 660rpx;
+  height: 250rpx;
+  padding: 10rpx 20rpx;
+  margin: 10rpx auto;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pic {
+  width: 200rpx;
+  height: 230rpx;
+  margin-left: 10rpx;
+}
+
+.infoContainer {
+  width: 395rpx;
+  height: 230rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 20rpx;
+}
+
+.productName {
+  width: 300rpx;
+  font-size: 32rpx;
+  height: 100rpx;
+  font-weight: bold;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: normal !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.delet {
+  font-size: 25rpx;
+  color: #3B3838;
+}
+
+.productText {
+  font-size: 25rpx;
+}
+
+.van-button--danger {
+  background-color: #C00000 !important;
+  border-radius: 20rpx !important;
+}
+
+.selectContainer {
+  position: absolute;
+  left: 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.clear {
+  font-size: 30rpx;
+  margin-left: 15rpx;
+  color: #C00000;
+}
+
+.poster {
+  position: absolute;
+  left: -780rpx;
+}

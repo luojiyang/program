@@ -18,6 +18,9 @@ Page({
     this.getSellerInfo()
     this.getInfo()
     this.widget = this.selectComponent('.widget');
+    wx.showShareMenu({
+      withShareTicket: true
+    });
   },
   getServerData() {   //生成图片
     wx.showLoading({
@@ -25,13 +28,22 @@ Page({
     });
     let image = this.data.product.images[0]
     let name = this.data.product.name
-    let specs = this.data.product.specs.filter(item => item.active).map(item => item.name)
-    let value = this.data.product.specs.filter(item => item.active).map(item => item.value)
-    let styles = {   //这里设定规格宽度
-      specsWidth: specs.toString().replace(/[\u0391-\uFFE5]/g, "aa").length * 12
+    let _wxml
+    let _style
+    if (this.data.product.specs != null) {
+      let specs = this.data.product.specs.filter(item => item.active).map(item => item.name)
+      let value = this.data.product.specs.filter(item => item.active).map(item => item.value)
+      let styles = {   //这里设定规格宽度
+        specsWidth: specs.toString().replace(/[\u0391-\uFFE5]/g, "aa").length * 12
+      }
+      _wxml = wxml(image, name, specs, value);
+      _style = style(styles)
     }
-    let _wxml = wxml(image, name, specs, value);
-    let _style = style(styles)
+    else {
+      let value = this.data.product.highPrice
+      _wxml = wxml(image, name, null, value);
+      _style = style()
+    }
     setTimeout(() => {
       const p1 = this.widget.renderToCanvas({
         wxml: _wxml,
@@ -70,9 +82,11 @@ Page({
       success(res) {
         if (res.data.code == 20012) {
           let product = res.data.data
-          for (let i = 0; i < product.specs.length; i++)
-            product.specs[i]['active'] = false
-          product.specs[0]['active'] = true
+          if (product.specs != null) {
+            for (let i = 0; i < product.specs.length; i++)
+              product.specs[i]['active'] = false
+            product.specs[0]['active'] = true
+          }
           that.setData({
             product: product
           })
@@ -82,7 +96,7 @@ Page({
   },
   lastProduct: function () {   //上一个商品
     let that = this
-    let index = that.data.productList.indexOf(that.data.id)
+    let index = that.data.productList.indexOf(parseInt(that.data.id))
     if (index == 0)
       wx.showModal({
         title: '提示',
@@ -137,20 +151,29 @@ Page({
       })
     }
   },
-  preservation() {   //保存图片到本地
+  preservation() {   //保存图片到本地或收藏
     const p2 = this.widget.canvasToTempFilePath()
     p2.then(res => {
-      wx.saveImageToPhotosAlbum({
-        filePath: res.tempFilePath,
-        success(res) {
-          wx.showToast({
-            title: '图片已保存!',
-            duration: 3000
-          })
-        },
+      wx.showShareImageMenu({
+        path: res.tempFilePath
       })
     }).catch(err => {
       console.log(err)
+    })
+  },
+  clickTopImg: function (e) {   //顶图预览
+    var imgUrl = this.data.product.avatar;
+    wx.previewImage({
+      urls: [imgUrl],
+      current: '',
+    })
+  },
+  clickImg: function (e) {   //详情图预览
+    let url = e.target.dataset.pic
+    let imgUrl = this.data.product.images
+    wx.previewImage({
+      urls: imgUrl,
+      current: url,
     })
   }
 })

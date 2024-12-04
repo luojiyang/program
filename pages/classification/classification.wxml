@@ -15,12 +15,11 @@
     <view>{{sellerInfo.location}}</view>
     <view>{{sellerInfo.intro}}</view>
   </view>
-
 </view>
 <!--搜索栏-->
 <van-search value="{{ value }}" placeholder="请输入商品名称" show-action bind:change="onChange" bind:cancel="onCancel" custom-class="search" />
 <!--商品和目录-->
-<view class="contentContainer" style="padding-bottom:90px;">
+<view class="contentContainer" style="padding-bottom:70px;">
   <!--目录-->
   <view class="menu">
     <view bind:tap="allProduct" class="firstMenu {{menuId==-1?'menuActive':''}}">全部商品</view>
@@ -42,8 +41,9 @@
   <scroll-view scroll-y class="scrollClass" show-scrollbar="{{false}}" enhanced="{{true}}" bindscrolltolower="getMoreProduct">
     <view wx:if="{{productLeft.length!=0||productRight.length!=0}}" class="scrollContainer">
       <view class="productContainer">
-        <view class="productCard" wx:for="{{productLeft}}" bind:tap="productInfo" data-id="{{item.id}}">
-          <image src="{{item.productAvatar}}" class="productImg" mode="widthFix"></image>
+        <view class="productCard" wx:for="{{product}}" bind:tap="productInfo" data-id="{{item.id}}">
+          <view wx:if="{{item.num!=0}}" class="num">{{item.num}}</view>
+          <image src="{{item.productAvatar}}" class="productImg" mode="heightFix"></image>
           <view class="productInfo">
             <view class="productName">{{item.productName}}</view>
             <view class="price">
@@ -51,25 +51,14 @@
               <view wx:if="{{item.productLowPrice!=item.productHighPrice}}">~{{item.productHighPrice}}</view>
             </view>
           </view>
-        </view>
-      </view>
-      <view class="productContainer">
-        <view class="productCard" wx:for="{{productRight}}" bind:tap="productInfo" data-id="{{item.id}}">
-          <image src="{{item.productAvatar}}" class="productImg" mode="widthFix"></image>
-          <view class="productInfo">
-            <view class="productName">{{item.productName}}</view>
-            <view class="price">
-              <view>￥{{item.productLowPrice}}</view>
-              <view wx:if="{{item.productLowPrice!=item.productHighPrice}}">~{{item.productHighPrice}}</view>
-            </view>
-          </view>
+          <view class="add" catch:tap="add" data-id="{{item.id}}">+</view>
         </view>
       </view>
     </view>
     <view wx:else class="noProduct">--该分类下暂无商品--</view>
   </scroll-view>
 </view>
-<van-tabbar active="{{ active }}" active-color="#C00000" bind:change="onChange">
+<van-tabbar active="{{ active }}" active-color="#C00000" bind:change="changeTab">
   <van-tabbar-item url="/pages/video/video">
     <image src="/images/video.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon" />
     <image src="/images/video.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon-active" />
@@ -85,9 +74,14 @@
     <image src="/images/newProduct.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon-active" />
     上新
   </van-tabbar-item>
-  <!-- <van-tabbar-item url="/pages/order/order">
-    <image src="/images/order.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon" />
-    <image src="/images/order.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon-active" />
-    订单
-  </van-tabbar-item> -->
 </van-tabbar>
+<!--购物车悬浮-->
+<van-icon name="/images/shopping.png" size="60px" custom-class="shopping" info="{{shopNum}}" bind:click="goOrder"/>
+<!--添加购物车选择规格弹框-->
+<van-popup show="{{ show }}" position="bottom" round custom-style="height: 30%; padding:30rpx 50rpx" bind:close="onClose">
+  <view wx:for="{{specs}}" class="chooseSpecs">
+    <view>{{item.name}}</view>
+    <view class="spec">￥{{item.value}}</view>
+    <van-stepper value="{{item.num}}" min="0" bind:change="chooseSpecs" integer data-index="{{index}}"/>
+  </view>
+</van-popup>

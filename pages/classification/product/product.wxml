@@ -1,11 +1,14 @@
 <!--基本信息-->
-<image src="{{product.images[0]}}" class="picture" mode="widthFix">
+<image src="{{product.avatar}}" class="picture" mode="widthFix" bindtap='clickTopImg'>
 </image>
 <view class="name">{{product.name}}</view>
-<view class="specs">
+<view class="specs" wx:if="{{product.specs!=null}}">
   <view wx:for="{{product.specs}}" class="{{item.active?'activeTag':'tag'}}" bind:tap="chooseSpec" data-index="{{index}}">{{item.name}}</view>
 </view>
 <view wx:for="{{product.specs}}" class="value" hidden="{{!item.active}}">￥{{item.value}}</view>
+<view wx:if="{{product.specs==null}}" class="value">
+￥{{product.highPrice}}
+</view>
 <view class="option" wx:for="{{product.options}}">
   <view>{{item.name}}: {{item.info}}</view>
 </view>
@@ -21,7 +24,7 @@
 <!--商品详情-->
 <view class="info">商品详情</view>
 <view wx:for="{{product.images}}" style="background-color: #ffffff;">
-  <image src="{{item}}" mode="widthFix" class="picture"></image>
+  <image src="{{item}}" mode="widthFix" class="picture" bindtap='clickImg' data-pic="{{item}}"></image>
 </view>
 <view style="padding-bottom:80px;"></view>
 

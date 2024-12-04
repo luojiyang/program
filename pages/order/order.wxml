@@ -1,2 +1,31 @@
-<!--pages/order/order.wxml-->
-<text>pages/order/order.wxml</text>
+<!--商品信息-->
+<view style="padding-bottom:55px;">
+  <view class="productCard" wx:for="{{productArray}}">
+    <radio checked="{{item.ifCheck}}" color="#C00000" bind:tap="check" data-index="{{index}}" />
+    <image src="{{item.image}}" class="pic" />
+    <view class="infoContainer">
+      <view style="display: flex;flex-direction: row; justify-content:space-between;align-items:flex-start;">
+        <view class="productName">{{item.name}}</view>
+        <view class="delet" bind:tap="delet" data-index="{{index}}">删除</view>
+      </view>
+      <view class="productText">规格：{{item.specs!=null?item.specs:'无'}}</view>
+      <view class="productText">单价：￥{{item.value}}</view>
+      <view style="display: flex;flex-direction: row; justify-content:space-between;align-items: center;">
+        <view class="productText">合计：￥{{item.total}}</view>
+        <van-stepper value="{{item.num}}" min="1" bind:change="changeNum" integer data-index="{{index}}" />
+      </view>
+    </view>
+  </view>
+</view>
+<!--总计栏-->
+<van-submit-bar price="{{ totalPrice }}" button-text="生成订货单" bind:submit="creatOrder" tip="{{ true }}">
+  <view class="selectContainer">
+    <radio checked="{{ifAll}}" bind:tap="allSelect" color="#C00000" />全选
+    <view bind:tap="clearShopList" class="clear">清空</view>
+  </view>
+</van-submit-bar>
+
+<!--海报-->
+<view class="poster">
+  <wxml-to-canvas class="widget" height="550"></wxml-to-canvas>
+</view>

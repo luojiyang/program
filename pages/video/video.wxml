@@ -31,9 +31,4 @@
     <image src="/images/newProduct.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon-active" />
     上新
   </van-tabbar-item>
-  <!-- <van-tabbar-item url="/pages/order/order">
-    <image src="/images/order.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon" />
-    <image src="/images/order.png" mode="aspectFit" style="width: 30px; height: 18px;" slot="icon-active" />
-    订单
-  </van-tabbar-item> -->
 </van-tabbar>

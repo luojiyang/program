@@ -142,10 +142,10 @@ Page({
           let productLeft = that.data.productLeft
           let productRight = that.data.productRight
           let page = that.data.page + 1
-          for (let i = 0; i < res.data.data.length; i += 2) {
-            productLeft.push(res.data.data[i])
-            if (i + 1 < res.data.data.length)
-              productRight.push(res.data.data[i + 1])
+          for (let i = 0; i < res.data.data.products.length; i += 2) {
+            productLeft.push(res.data.data.products[i])
+            if (i + 1 < res.data.data.products.length)
+              productRight.push(res.data.data.products[i + 1])
           }
           that.setData({
             productLeft: productLeft,
