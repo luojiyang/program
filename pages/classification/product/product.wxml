@@ -1,3 +1,7 @@
+<!--海报-->
+<view class="poster">
+  <wxml-to-canvas class="widget" height="550"></wxml-to-canvas>
+</view>
 <!--基本信息-->
 <image src="{{product.avatar}}" class="picture" mode="widthFix" bindtap='clickTopImg'>
 </image>
@@ -7,7 +11,7 @@
 </view>
 <view wx:for="{{product.specs}}" class="value" hidden="{{!item.active}}">￥{{item.value}}</view>
 <view wx:if="{{product.specs==null}}" class="value">
-￥{{product.highPrice}}
+  ￥{{product.highPrice}}
 </view>
 <view class="option" wx:for="{{product.options}}">
   <view>{{item.name}}: {{item.info}}</view>
@@ -23,19 +27,17 @@
 </view>
 <!--商品详情-->
 <view class="info">商品详情</view>
-<view wx:for="{{product.images}}" style="background-color: #ffffff;">
-  <image src="{{item}}" mode="widthFix" class="picture" bindtap='clickImg' data-pic="{{item}}"></image>
+<view id="picture">
+  <view wx:for="{{product.images}}" style="background-color: #ffffff;">
+    <image src="{{item}}" mode="widthFix" class="picture" bindtap='clickImg' data-pic="{{item}}"></image>
+  </view>
 </view>
-<view style="padding-bottom:80px;"></view>
+
+<view style="height:{{viewHeight}}px"></view>
 
 <!--分享&咨询-->
 <van-tabbar bind:change="onClick">
-  <van-tabbar-item icon="share">分享</van-tabbar-item>
+  <van-tabbar-item icon="share" id="tabbar">分享</van-tabbar-item>
   <van-tabbar-item icon="home-o">主页</van-tabbar-item>
   <van-tabbar-item icon="phone">咨询</van-tabbar-item>
 </van-tabbar>
-
-<!--海报-->
-<view class="poster">
-  <wxml-to-canvas class="widget" height="550"></wxml-to-canvas>
-</view>

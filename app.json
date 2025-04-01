@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/classification/classification",
     "pages/video/video",
     "pages/newProduct/newProduct",
-    "pages/classification/classification",
     "pages/order/order",
     "pages/classification/product/product"
   ],

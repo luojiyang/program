@@ -2,7 +2,7 @@
 <view style="padding-bottom:55px;">
   <view class="productCard" wx:for="{{productArray}}">
     <radio checked="{{item.ifCheck}}" color="#C00000" bind:tap="check" data-index="{{index}}" />
-    <image src="{{item.image}}" class="pic" />
+    <image src="{{item.image}}" class="pic" mode="widthFix" />
     <view class="infoContainer">
       <view style="display: flex;flex-direction: row; justify-content:space-between;align-items:flex-start;">
         <view class="productName">{{item.name}}</view>
@@ -27,5 +27,5 @@
 
 <!--海报-->
 <view class="poster">
-  <wxml-to-canvas class="widget" height="550"></wxml-to-canvas>
+  <wxml-to-canvas class="widget" style="width: {{width}}; height: {{height}}"></wxml-to-canvas>
 </view>

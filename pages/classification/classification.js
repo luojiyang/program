@@ -1,5 +1,6 @@
 const app = getApp();
 const url = app.globalData.url;
+const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
 Page({
   data: {
     active: 1,   //当前tab页面
@@ -16,11 +17,15 @@ Page({
     show: false,   //选择规格弹窗
     specs: [],   //添加购物车，选择规格列表
     chooseId: -1,   //选择规格时的商品ID
+    showLogin: false,   //登录弹窗
+    avatarUrl: defaultAvatarUrl,   //用户头像
+    nickName: '',   //用户昵称
   },
   onLoad(options) {
     this.getSellerInfo()
     this.getMenu()
     this.getProduct(this.data.value)
+    this.ifLogin()
   },
   onShow() {
     wx.hideHomeButton()
@@ -355,5 +360,65 @@ Page({
         productList[i].num = num > 99 ? '99+' : num
       }
     return productList
+  },
+  onSubmit: function (e) {   //登录判断
+    const { nickname } = e.detail.value;
+    let that = this
+    if (nickname)
+      wx.request({
+        url: url + '/user/checkAuth',
+        method: 'GET',
+        data: {
+          username: nickname
+        },
+        success(res) {
+          if (res.data.code == 200 && res.data.data) {
+            wx.showToast({
+              title: '登录成功！',
+            })
+            that.setData({
+              showLogin: false
+            })
+            wx.setStorage({
+              key:"nickName",
+              data:"nickname"
+             })
+          }
+          else if (res.data.code == 401 && !res.data.data) {
+            wx.showModal({
+              title: '提示',
+              content: '用户未授权，请联系管理员！',
+              showCancel: false,
+            })
+          }
+          else {
+            wx.showModal({
+              title: '提示',
+              content: '网络连接错误，请检查网络或联系管理员！',
+              showCancel: false
+            })
+          }
+        }
+      })
+    else
+      wx.showModal({
+        title: '提示',
+        content: '请输入昵称或使用微信昵称！',
+        showCancel: false
+      })
+  },
+  showLogin: function () {   //未登录展示弹窗
+    this.setData({
+      showLogin: true
+    })
+  },
+  ifLogin: function () {   //判断登录状态
+    let that = this
+    wx.getStorage({
+      key: 'nickName',
+      fail: function (res) {
+        that.showLogin()
+      },
+    })
   }
 })

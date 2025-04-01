@@ -15,9 +15,9 @@ page {
 }
 
 .pic {
-  width: 200rpx;
-  height: 230rpx;
+  max-height: 200rpx;
   margin-left: 10rpx;
+  width: 200rpx;
 }
 
 .infoContainer {
@@ -32,7 +32,7 @@ page {
 .productName {
   width: 300rpx;
   font-size: 32rpx;
-  height: 100rpx;
+  height: 80rpx;
   font-weight: bold;
   display: -webkit-box;
   overflow: hidden;

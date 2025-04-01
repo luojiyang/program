@@ -76,12 +76,19 @@
   </van-tabbar-item>
 </van-tabbar>
 <!--购物车悬浮-->
-<van-icon name="/images/shopping.png" size="60px" custom-class="shopping" info="{{shopNum}}" bind:click="goOrder"/>
+<van-icon name="/images/shopping.png" size="60px" custom-class="shopping" info="{{shopNum}}" bind:click="goOrder" />
 <!--添加购物车选择规格弹框-->
 <van-popup show="{{ show }}" position="bottom" round custom-style="height: 30%; padding:30rpx 50rpx" bind:close="onClose">
   <view wx:for="{{specs}}" class="chooseSpecs">
     <view>{{item.name}}</view>
     <view class="spec">￥{{item.value}}</view>
-    <van-stepper value="{{item.num}}" min="0" bind:change="chooseSpecs" integer data-index="{{index}}"/>
+    <van-stepper value="{{item.num}}" min="0" bind:change="chooseSpecs" integer data-index="{{index}}" />
   </view>
+</van-popup>
+<!--登录弹出层-->
+<van-popup show="{{ showLogin }}" position="bottom" custom-style="height: 40%; padding:30rpx 50rpx">
+  <form bindsubmit="onSubmit">
+    <input type="nickname" placeholder="点击填入微信昵称" class="nickName" name="nickname" />
+    <button form-type="submit" class="submit">登录</button>
+  </form>
 </van-popup>

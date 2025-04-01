@@ -6,7 +6,9 @@ Page({
     shopList: [],   //购物车列表
     ifAll: true,   //全选框
     totalPrice: 0,   //选中商品总金额*100
-    productArray: []  //商品列表
+    productArray: [],  //商品列表
+    width: 0,
+    height: 0,
   },
   onLoad(options) {
     let shopList = JSON.parse(options.shopList)
@@ -69,7 +71,7 @@ Page({
             } else {  //获取商品单价
               value = res.data.data.highPrice;
             }
-            let pic = res.data.data.images ? res.data.data.images[0] : '';
+            let pic = res.data.data.avatar ? res.data.data.avatar : '';
             resolve({ name, value, pic });
           } else {
             reject(new Error('Failed to fetch product information'));
@@ -127,8 +129,12 @@ Page({
       title: '图片生成中...',
     });
     let productArray = this.data.productArray.filter(item => { return item.ifCheck })
-    let _wxml = wxml(productArray, this.data.totalPrice / 100);
-    let _style = style();
+    let _wxml
+    let _style = style({
+      height: productArray.length * 40 + 50
+    })
+    _wxml = wxml(productArray, this.data.totalPrice / 100);
+
     setTimeout(() => {
       const p1 = this.widget.renderToCanvas({
         wxml: _wxml,
@@ -136,6 +142,10 @@ Page({
       });
       p1.then((res) => {
         this.container = res;
+        this.setData({
+          width: this.container.layoutBox.width,
+          height: this.container.layoutBox.height
+        })
         wx.hideLoading();
         this.preservation();
       });

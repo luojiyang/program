@@ -7,6 +7,7 @@ Page({
     productList: [],   //滑动商品id列表
     product: {},   //商品信息
     phone: '',
+    viewHeight: 0,   //底部遮挡
   },
   onLoad(options) {
     let id = options.id
@@ -175,5 +176,23 @@ Page({
       urls: imgUrl,
       current: url,
     })
+  },
+  onReachBottom() {   //解决底部tabbbar遮挡
+    let that = this
+    if (that.data.product.images != null) {
+      let bottom = 0
+      let top = 0
+      wx.createSelectorQuery().select('#tabbar').boundingClientRect(function (rect1) {
+        top = rect1.top
+        wx.createSelectorQuery().select('#picture').boundingClientRect(function (rect2) {
+          bottom = rect2.top + rect2.height - 50
+          if (bottom > top) {
+            that.setData({
+              viewHeight: bottom - top
+            })
+          }
+        }).exec()
+      }).exec()
+    }
   }
 })

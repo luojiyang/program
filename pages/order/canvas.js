@@ -34,13 +34,7 @@ const wxml = (productArray, total) => {
                     <text class="product-text">规格：${spec}</text>
                   </view>
                   <view>
-                    <text class="product-text">单价：￥${productArray[i].value}</text>
-                  </view>
-                  <view>
                     <text class="product-text">数量：${productArray[i].num}</text>
-                  </view>
-                  <view>
-                    <text class="product-text">合计：￥${productArray[i].total}</text>
                   </view>
                 </view>`
     product += containerLeft + info + containerRight
@@ -53,38 +47,35 @@ const wxml = (productArray, total) => {
                             <text class="price">￥${total}</text>
                           </view>
                         </view>`
-  return '<view class="canvas">' + product + totalContainer + '</view>'
-
+  return '<view class="big-container">' + product + totalContainer + '</view>'
 }
-const style = () => {
+
+const style = (styles = null) => {
   return {
-    canvas: {
+    bigContainer: {
       width: 390,
       backgroundColor: '#E7E6E6',
+      height: styles.height,
     },
     productCard: {
       backgroundColor: '#ffffff',
       width: 350,
+      height: 80,
       marginTop: 10,
       marginLeft: 20,
       borderRadius: 5,
     },
     container: {
       width: 330,
-      height: 105,
-      marginTop: 10,
+      height: 80,
       marginLeft: 10,
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center'
     },
-    pic: {
-      width: 90,
-      height: 90,
-    },
     infoContainer: {
       width: 330,
-      height: 95,
+      height: 45,
       marginLeft: 10,
       display: 'flex',
       flexDirection: 'column',
